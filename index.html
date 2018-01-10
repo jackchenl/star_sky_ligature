@@ -13,7 +13,7 @@ body{
 }
 </style>
 <body>
-  <canvas height="620" width="1360" id="canvas"></canvas>
+  <canvas style="background-image: url(./sky.jpg);" height="620" width="1360" id="canvas"></canvas>
   <script type="text/javascript">
     var canvasEl = document.getElementById('canvas');
     var ctx = canvasEl.getContext('2d');
@@ -136,8 +136,17 @@ function adjustNodeDrivenByMouse() {
 
 //使鼠标处的点和线连接起来
 function render() {
-    ctx.fillStyle = backgroundColor;
-    ctx.fillRect(0, 0, canvasEl.width, canvasEl.height);
+    var imgs = new Image();  
+        imgs.src = "sky.jpg";
+        imgs.onload = createPat;//图片加载完成再执行
+        function createPat(){  
+                var bg = ctx.createPattern(imgs,"repeat", "repeat");
+                ctx.fillStyle = bg;  
+                ctx.fillRect(0, 0, canvasEl.width, canvasEl.height);  
+        }
+          
+    // ctx.fillStyle = backgroundColor;
+    // ctx.fillRect(0, 0, canvasEl.width, canvasEl.height);
 
     edges.forEach(function (e) {
         var l = lengthOfEdge(e);
